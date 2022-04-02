@@ -2,22 +2,34 @@ import express, { response } from "express"
 
 const app = express()
 app.use(express.json())
+app.use((req, res, next) => {
+	//allow access from every, elminate CORS
+	res.setHeader("Access-Control-Allow-Origin", "*")
+	res.removeHeader("x-powered-by")
+	//set the allowed HTTP methods to be requested
+	res.setHeader("Access-Control-Allow-Methods", "POST")
+	//headers clients can use in their requests
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type")
+	//allow request to continue and be handled by routes
+	next()
+})
 app.get("/", (req, res) => res.send("Express + Typescript Server Rockstar"))
 let id = 2
+const addresses = [
+	{ currency: "bitcoinLN", address: "adsfadsf", amount: 0.000000923 },
+	{ currency: "bnb", address: "adsfadsf", amount: 0.000000923 },
+	{ currency: "xrp", address: "adsfasdf", amount: 0.000000923 },
+	{ currency: "polygon", address: "adsfasdf", amount: 0.000000923 },
+	{ currency: "cardano", address: "gsdfsdf", amount: 10 },
+	{ currency: "usdt", address: "sdfgsdfg", amount: 0.000000923 },
+	{ currency: "dai", address: "sdfgsdfg", amount: 0.000000923 },
+]
 const chargeResponse = (price) => {
 	id++
 	return {
 		price,
 		id,
-		addresses: {
-			bitcoinLN: { address: "", amount: 0.000000923 },
-			bnb: { address: "", amount: 0.000000923 },
-			xrp: { address: "", amount: 0.000000923 },
-			polygon: { address: "", amount: 0.000000923 },
-			cardano: { address: "", amount: 10 },
-			usdt: { address: "", amount: 0.000000923 },
-			dai: { address: "", amount: 0.000000923 },
-		},
+		addresses,
 		state: "PENDING",
 	}
 }
@@ -35,12 +47,22 @@ app.post("/charges", (req, res) => {
 })
 
 app.get("/charges", (req, res) => {
-	res.send(charges)
+	res.send({ data: charges })
 })
 
 export default app
 
 const charges = [
-	{ id: 0, price: { currency: "ARS", amount: 1500 }, state: "CONFIRMED" },
-	{ id: 1, price: { currency: "ARS", amount: 1800 }, state: "PENDING" },
+	{
+		id: 0,
+		addresses,
+		price: { currency: "ARS", amount: 1500 },
+		state: "CONFIRMED",
+	},
+	{
+		id: 1,
+		addresses,
+		price: { currency: "ARS", amount: 1800 },
+		state: "PENDING",
+	},
 ]

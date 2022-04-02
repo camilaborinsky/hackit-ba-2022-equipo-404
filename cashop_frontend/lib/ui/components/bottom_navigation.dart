@@ -1,17 +1,14 @@
-import 'dart:math';
-
 import 'package:cashop_frontend/style/color_palette.dart';
+import 'package:cashop_frontend/ui/screens/api_methods_test.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({Key? key, this.width}) : super(key: key);
   final double? width;
-
   @override
   Widget build(BuildContext context) {
-    final double finalWidth = width ??  MediaQuery.of(context).size.width;
     return Container(
-        width: finalWidth,
+        width: MediaQuery.of(context).size.width,
         height: 60,
         decoration: const BoxDecoration(
           color: ColorPalette.transparent,
@@ -32,13 +29,13 @@ class BottomNavigation extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 SizedBox(
-                  width: finalWidth / 3,
+                  width: MediaQuery.of(context).size.width / 3,
                   child:
                       IconButton(icon: Icon(Icons.favorite), onPressed: () {}),
                 ),
                 // Spacer(),
                 SizedBox(
-                  width: finalWidth / 3,
+                  width: MediaQuery.of(context).size.width / 3,
                   child:
                       IconButton(icon: Icon(Icons.favorite), onPressed: () {}),
                 ),
@@ -55,13 +52,12 @@ class QRFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.only(bottom:30),
       child: FloatingActionButton(
-        child: Icon(
-          Icons.qr_code_2_rounded,
-          size: 35,
-        ),
-        onPressed: () {},
+        child: Icon(Icons.qr_code_2_rounded, size: 35,),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ApiMethodsTest()));
+        },
       ),
     );
   }

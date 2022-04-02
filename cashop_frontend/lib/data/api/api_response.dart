@@ -8,10 +8,7 @@ class ApiResponse<T> extends Equatable {
   const ApiResponse({
     required this.url,
     this.data,
-    this.error = false,
-    required this.message,
     required this.statusCode,
-    this.exception,
   });
 
   factory ApiResponse.fromError(DioError error) {
@@ -20,10 +17,8 @@ class ApiResponse<T> extends Equatable {
     return ApiResponse<T>(
       url:
           "${error.requestOptions.path}/${error.requestOptions.queryParameters}",
-      error: true,
-      message: "Response with status code [${error.response?.statusCode}]",
+      
       statusCode: error.response?.statusCode ?? 500,
-      exception: error,
     );
   }
 
@@ -31,33 +26,25 @@ class ApiResponse<T> extends Equatable {
           T Function(Map<String, dynamic> data) mapper) =>
       ApiResponse<T>(
         url: '',
-        error: json['error'] as bool,
-        message: json['message'] as String,
         data: mapper(<String, dynamic>{"data": json['data']}),
         statusCode: HttpStatus.ok,
       );
 
   final String url;
   final T? data;
-  final bool error;
-  final String message;
   final int statusCode;
-  final Exception? exception;
 
   bool get success {
-    return !error;
+    return statusCode <300 && statusCode >=200;
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'url': url,
-        'error': error,
         'data': data,
-        'message': message,
         'statusCode': statusCode,
-        'exception': exception.toString(),
       };
 
   @override
   List<Object?> get props =>
-      <Object?>[url, error, data, message, statusCode, exception];
+      <Object?>[url, data, statusCode];
 }

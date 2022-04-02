@@ -20,27 +20,42 @@ class _ApiMethodsTestState extends State<ApiMethodsTest> {
     super.initState();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(children: [
-        TextButton(
-          child: Text("Get Charges"),
-          onPressed: () async {
-            ApiResponse<List<Charge>> apiResponseCharges =
-                await chargesApi.getCharges();
-            if (apiResponseCharges.success) {
-              List<Charge>? chargesData = apiResponseCharges.data;
-              if (chargesData != null) {
-                setState(() {
-                  charges = chargesData
-                      .map((e) => Charge(e.id, e.price, e.addresses, e.state))
-                      .toList();
-                });
+        Row(children:[
+            TextButton(
+            child: Text("Get Charges"),
+            onPressed: () async {
+              ApiResponse<List<Charge>> apiResponseCharges =
+                  await chargesApi.getCharges();
+              if (apiResponseCharges.success) {
+                List<Charge>? chargesData = apiResponseCharges.data;
+                if (chargesData != null) {
+                  setState(() {
+                    charges = chargesData
+                        .map((e) => Charge(e.id, e.price, e.addresses, e.state))
+                        .toList();
+                  });
+                }
               }
-            }
-          },
-        ),
+            },
+          ),
+          TextButton(
+            child: Text("Add Charge"),
+            onPressed: () async {
+              Price newChargePrice = Price("ARS",999);
+              ApiResponse<Charge> apiResponseCreateCharge =
+                  await chargesApi.createCharge(newChargePrice);
+              if (apiResponseCreateCharge.success) {
+                Charge? chargesData = apiResponseCreateCharge.data;
+              }
+            },
+          )
+        ]),
         ...charges.map((e) => ChargeRowItem(e)).toList()
       ]),
     );

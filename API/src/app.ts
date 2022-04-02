@@ -43,7 +43,7 @@ app.post("/charges", (req, res) => {
 	//mandar el mansaje a ellas
 	const response = chargeResponse(price)
 	charges.push(response)
-	res.send(response)
+	res.send({ data: response })
 })
 
 app.get("/charges", (req, res) => {

@@ -20,7 +20,7 @@ class ChargeRowItem extends StatelessWidget {
               color: ColorPalette.silver,
               size: 16,
             ),
-            SizedBox(
+            const SizedBox(
               width: 16,
             ),
             RichText(
@@ -31,7 +31,7 @@ class ChargeRowItem extends StatelessWidget {
                   TextSpan(
                       text: ',${((charge.price.amount -charge.price.amount.floor())*100).toInt()}', style: Theme.of(context).textTheme.bodyText2)
                 ])),
-            Spacer(),
+            const Spacer(),
             Text(
               'Hoy',
               style: Theme.of(context)
@@ -39,14 +39,14 @@ class ChargeRowItem extends StatelessWidget {
                   .caption
                   ?.copyWith(color: ColorPalette.silver),
             ),
-            SizedBox(
+            const SizedBox(
               width: 4,
             ),
             Text(
               '14:23',
               style: Theme.of(context).textTheme.caption,
             ),
-            SizedBox(
+            const SizedBox(
               width: 8,
             ),
             const Icon(

@@ -12,6 +12,4 @@ class ColorPalette {
   static const Color doveGrey = Color(0xff6a6a6a);
   static const Color emerald = Color(0xff41bf78);
   static const Color transparent = Color(0x00000000);
-
-
 }

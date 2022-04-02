@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-
 class ResponsiveWidget extends StatelessWidget {
-  const ResponsiveWidget({required this.web, required this.mobile, required this.tablet, required this.other});
+  const ResponsiveWidget(
+      {required this.web,
+      required this.mobile,
+      required this.tablet,
+      required this.other});
 
   final Widget web;
   final Widget tablet;

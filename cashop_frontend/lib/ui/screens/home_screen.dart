@@ -1,4 +1,8 @@
 import 'package:cashop_frontend/layout/responsive_interface.dart';
+import 'package:cashop_frontend/style/color_palette.dart';
+import 'package:cashop_frontend/ui/components/account_header.dart';
+import 'package:cashop_frontend/ui/components/charge_row_item.dart';
+import 'package:cashop_frontend/ui/components/list_header.dart';
 import 'package:cashop_frontend/ui/layouts/mobile_scaffold.dart';
 import 'package:cashop_frontend/ui/layouts/web_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +14,45 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveWidget(
       mobile: MobileScaffold(
-        child: Container(),
+        child:_buildComponent(context),
       ),
-      web: WebScaffold(child: Container(),),
-      other: MobileScaffold(child: Container(),),
-      tablet: MobileScaffold(child: Container(),),
+      web: WebScaffold(
+        child: _buildComponent(context),
+      ),
+      other: MobileScaffold(
+        child: _buildComponent(context),
+      ),
+      tablet: MobileScaffold(
+        child: _buildComponent(context),
+      ),
+    );
+  }
+
+  Widget _buildComponent(BuildContext context) {
+    return  CustomScrollView(
+      
+      slivers: <Widget>[
+        SliverAppBar(
+            expandedHeight: 180.0,
+            collapsedHeight: 180,
+            backgroundColor: ColorPalette.transparent,
+            centerTitle: true,
+            pinned: true,
+            flexibleSpace: Column(
+              children: [
+                AccountHeader(),
+                ListHeader(),
+                
+              ],
+            ) ,
+        ),
+        SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => ChargeRowItem(),
+                    childCount: 10
+                    ))
+
+      ],
     );
   }
 }

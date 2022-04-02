@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:cashop_frontend/style/color_palette.dart';
 import 'package:flutter/material.dart';

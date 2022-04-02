@@ -1,4 +1,5 @@
 import 'package:cashop_frontend/style/color_palette.dart';
+import 'package:cashop_frontend/style/font_family.dart';
 import 'package:flutter/material.dart';
 
 class CustomTheme{
@@ -15,6 +16,8 @@ class CustomTheme{
   }
   static ThemeData get lightTheme {
     return ThemeData(
+      useMaterial3: true,
+      fontFamily: FontFamily.sfProRounded,
       primaryColor: ColorPalette.emerald,
       primaryColorLight: ColorPalette.algaeGreen,
       // primaryColorDark: ColorPalette.prussianBlue,

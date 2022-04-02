@@ -10,11 +10,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveWidget(
       mobile: MobileScaffold(
-
+        child: Container(),
       ),
-      web: WebScaffold(),
-      other: MobileScaffold(),
-      tablet: MobileScaffold(),
+      web: WebScaffold(child: Container(),),
+      other: MobileScaffold(child: Container(),),
+      tablet: MobileScaffold(child: Container(),),
     );
   }
 }

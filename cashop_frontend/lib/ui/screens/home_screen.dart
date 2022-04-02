@@ -3,6 +3,7 @@ import 'package:cashop_frontend/style/color_palette.dart';
 import 'package:cashop_frontend/ui/components/account_header.dart';
 import 'package:cashop_frontend/ui/components/bottom_navigation.dart';
 import 'package:cashop_frontend/ui/components/charge_row_item.dart';
+import 'package:cashop_frontend/ui/components/coin_row.dart';
 import 'package:cashop_frontend/ui/components/list_header.dart';
 import 'package:cashop_frontend/ui/layouts/mobile_scaffold.dart';
 import 'package:cashop_frontend/ui/layouts/web_scaffold.dart';
@@ -77,13 +78,16 @@ class HomeView extends StatelessWidget {
         SliverAppBar(
           expandedHeight: 180.0,
           collapsedHeight: 180,
-          backgroundColor: ColorPalette.transparent,
+          backgroundColor: ColorPalette.white,
           centerTitle: true,
           pinned: true,
           flexibleSpace: Column(
             children: const <Widget>[
               AccountHeader(),
-              ListHeader(),
+              SizedBox(height: 16,),
+              ListHeader(
+                title: 'Transacciones',
+              ),
             ],
           ),
         ),
@@ -105,22 +109,24 @@ class WalletView extends StatelessWidget {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-          expandedHeight: 180.0,
-          collapsedHeight: 180,
-          backgroundColor: ColorPalette.transparent,
+          expandedHeight: 170.0,
+          collapsedHeight: 170,
+          backgroundColor: ColorPalette.white,
           centerTitle: true,
           pinned: true,
           flexibleSpace: Column(
             children: const <Widget>[
               AccountHeader(),
-              ListHeader(),
+              ListHeader(title: 'Monedas'),
+              const SizedBox(height: 16,),
+
             ],
           ),
         ),
         SliverList(
             delegate: SliverChildBuilderDelegate(
-                (context, index) => const ChargeRowItem(),
-                childCount: 10))
+                (context, index) => const CoinRow(),
+                childCount: 30))
       ],
     );
   }

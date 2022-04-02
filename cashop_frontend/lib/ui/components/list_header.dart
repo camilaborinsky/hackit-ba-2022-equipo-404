@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 
 class ListHeader extends StatelessWidget {
-  const ListHeader({Key? key}) : super(key: key);
+  const ListHeader({Key? key, required this.title}) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      padding: const EdgeInsets.only(top: 10, left: 16, right:16),
       child: Row(
         children: [
           Text(
-            'Transacciones',
+            title,
             style: Theme.of(context).textTheme.caption,
           ),
-          Spacer(),
-          Icon(
+          const Spacer(),
+          const Icon(
             Icons.access_time_rounded,
             size: 14,
           ),
-          Icon(
+          const Icon(
             Icons.arrow_downward,
             size: 14,
           )

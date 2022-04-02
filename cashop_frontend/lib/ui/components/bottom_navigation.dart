@@ -26,7 +26,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     final double finalWidth = widget.width ?? MediaQuery.of(context).size.width;
     return Container(
-        width: MediaQuery.of(context).size.width,
+        width: widget.width,
         height: 60,
         decoration: const BoxDecoration(
           color: ColorPalette.transparent,

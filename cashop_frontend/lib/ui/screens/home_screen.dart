@@ -7,6 +7,8 @@ import 'package:cashop_frontend/ui/layouts/mobile_scaffold.dart';
 import 'package:cashop_frontend/ui/layouts/web_scaffold.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/api/charges_api.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -48,7 +50,7 @@ class HomeScreen extends StatelessWidget {
         ),
         SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (context, index) => ChargeRowItem(),
+                    (context, index) => ChargeRowItem(Charge(1,Price("ARS",1500.65),[],"CONFIRMED")),
                     childCount: 10
                     ))
 

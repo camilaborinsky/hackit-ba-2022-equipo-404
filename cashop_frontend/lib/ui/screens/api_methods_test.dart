@@ -1,5 +1,6 @@
 import 'package:cashop_frontend/data/api/api_response.dart';
 import 'package:cashop_frontend/data/api/charges_api.dart';
+import 'package:cashop_frontend/ui/components/charge_row_item.dart';
 import 'package:flutter/material.dart';
 
 class ApiMethodsTest extends StatefulWidget {
@@ -40,7 +41,7 @@ class _ApiMethodsTestState extends State<ApiMethodsTest> {
             }
           },
         ),
-        ...charges.map((e) => Text(e.toString())).toList()
+        ...charges.map((e) => ChargeRowItem(e)).toList()
       ]),
     );
   }

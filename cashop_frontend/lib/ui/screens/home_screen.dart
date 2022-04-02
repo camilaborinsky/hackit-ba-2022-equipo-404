@@ -1,3 +1,4 @@
+import 'package:cashop_frontend/data/api/charges_api.dart';
 import 'package:cashop_frontend/layout/responsive_interface.dart';
 import 'package:cashop_frontend/style/color_palette.dart';
 import 'package:cashop_frontend/ui/components/account_header.dart';
@@ -91,10 +92,12 @@ class HomeView extends StatelessWidget {
             ],
           ),
         ),
-        SliverList( 
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => const ChargeRowItem(),
-                childCount: 10))
+        SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => ChargeRowItem(Charge(1,Price("ARS",1500.65),[],"CONFIRMED")),
+                    childCount: 10
+                    ))
+
       ],
     );
   }

@@ -1,8 +1,11 @@
 import 'package:cashop_frontend/style/color_palette.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/api/charges_api.dart';
+
 class ChargeRowItem extends StatelessWidget {
-  const ChargeRowItem({Key? key}) : super(key: key);
+  final Charge charge;
+  const ChargeRowItem(this.charge, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +25,11 @@ class ChargeRowItem extends StatelessWidget {
             ),
             RichText(
                 text: TextSpan(
-                    text: '\$508',
+                    text: "\$${charge.price.amount.floor()}",
                     style: Theme.of(context).textTheme.bodyText1,
                     children: [
                   TextSpan(
-                      text: ',4', style: Theme.of(context).textTheme.bodyText2)
+                      text: ',${((charge.price.amount -charge.price.amount.floor())*100).toInt()}', style: Theme.of(context).textTheme.bodyText2)
                 ])),
             const Spacer(),
             Text(

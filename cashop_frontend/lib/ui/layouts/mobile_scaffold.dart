@@ -12,7 +12,7 @@ class MobileScaffold extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Container(color: ColorPalette.emerald,child: child,),
+            Container(child: child,),
             Positioned(child: BottomNavigation(), bottom: 0,)
           ],
         ),

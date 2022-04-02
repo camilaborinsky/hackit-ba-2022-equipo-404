@@ -30,7 +30,7 @@ class WebScaffold extends StatelessWidget {
           child: SafeArea(
               child: Stack(
             children: <Widget>[
-              Container(color: ColorPalette.emerald,child: child,),
+              Container(child: child,),
             Positioned(child: BottomNavigation(width: 800,), bottom: 0,)
             ],
           )),

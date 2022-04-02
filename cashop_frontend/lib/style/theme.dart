@@ -24,6 +24,40 @@ class CustomTheme{
       backgroundColor: ColorPalette.white,
       scaffoldBackgroundColor: ColorPalette.white,
       colorScheme: colorScheme,
+      textTheme: const TextTheme(
+          headline1: TextStyle(
+            fontFamily: FontFamily.sfProRounded,
+              fontSize: 47,
+              fontWeight: FontWeight.w500,
+              color: ColorPalette.emerald),
+          // headline2: TextStyle(
+          //   fontFamily: FontFamily.sfProRounded,
+          //     fontSize: 47,
+          //     fontWeight: FontWeight.w500,
+          //     color: ColorPalette.emerald),
+          // subtitle1: TextStyle(
+          //     fontSize: 30,
+          //     fontWeight: FontWeight.w400,
+          //     color: ColorPalette.sirocco),
+          // subtitle2: TextStyle(
+          //     fontSize: 30,
+          //     fontWeight: FontWeight.w400,
+              // color: ColorPalette.capeCod),
+          bodyText1: TextStyle(
+            fontFamily: FontFamily.sfProRounded,
+              fontSize: 22,
+              fontWeight: FontWeight.normal,
+              color: ColorPalette.doveGrey),
+          bodyText2: TextStyle(
+            fontFamily: FontFamily.sfProRounded,
+              fontSize: 22,
+              fontWeight: FontWeight.normal,
+              color: ColorPalette.silver),
+          caption: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.normal,
+              color: ColorPalette.dustyGray),
+        )
     );
   }
 

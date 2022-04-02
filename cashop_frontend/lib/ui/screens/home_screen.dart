@@ -109,14 +109,14 @@ class WalletView extends StatelessWidget {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-          expandedHeight: 170.0,
-          collapsedHeight: 170,
+          expandedHeight: 210,
+          collapsedHeight: 210,
           backgroundColor: ColorPalette.white,
           centerTitle: true,
           pinned: true,
           flexibleSpace: Column(
             children: const <Widget>[
-              AccountHeader(),
+              AccountHeader(withButtons: true,),
               ListHeader(title: 'Monedas'),
               const SizedBox(height: 16,),
 

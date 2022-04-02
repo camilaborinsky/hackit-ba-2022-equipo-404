@@ -2,12 +2,14 @@ import 'package:cashop_frontend/style/color_palette.dart';
 import 'package:flutter/material.dart';
 
 class AccountHeader extends StatelessWidget {
-  const AccountHeader({Key? key}) : super(key: key);
+  const AccountHeader({Key? key, this.withButtons = false}) : super(key: key);
+
+  final bool withButtons;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 16),
+      padding:  EdgeInsets.only(left: 16, right: 16, top: 12, bottom: withButtons? 0 : 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,6 +45,68 @@ class AccountHeader extends StatelessWidget {
                         ?.copyWith(color: ColorPalette.doveGrey),
                   )
                 ],
+              ),
+              if(withButtons)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Wrap(
+                  spacing: 12,
+                  children: <Widget>[
+                    TextButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>((states) => const EdgeInsets.only(bottom: 14, top: 12, left: 16, right: 16)),
+                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.disabled)) {
+                        return ColorPalette.athensGrey.withOpacity(0.3);
+                      } else {
+                        return ColorPalette.athensGrey;
+                      }
+                      }),
+                      ),
+                      onPressed: () {
+                          // Respond to button press
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children:  <Widget>[
+                          const Padding(
+                            padding: EdgeInsets.only(right:8.0),
+                            child: Icon(Icons.arrow_upward_rounded, size: 18, color: ColorPalette.doveGrey, ),
+                          ),
+                          Text('ENVIAR', style: Theme.of(context).textTheme.caption?.copyWith(color: ColorPalette.doveGrey, fontWeight: FontWeight.bold),),
+                        ],
+                      ),
+                    ),
+                    TextButton(
+                    
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>((states) => const EdgeInsets.only(bottom: 14, top: 12, left: 16, right: 16)),
+                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.disabled)) {
+                        return ColorPalette.athensGrey.withOpacity(0.3);
+                      } else {
+                        return ColorPalette.athensGrey;
+                      }
+                      }),
+                      ),
+                      onPressed: () {
+                          // Respond to button press
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children:  <Widget>[
+                          const Padding(
+                            padding: EdgeInsets.only(right:8.0),
+                            child: Icon(Icons.arrow_downward_rounded, size: 18, color: ColorPalette.doveGrey, ),
+                          ),
+                          Text('RECIBIR', style: Theme.of(context).textTheme.caption?.copyWith(color: ColorPalette.doveGrey, fontWeight: FontWeight.bold),),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),

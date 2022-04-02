@@ -9,16 +9,8 @@ class MobileScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(child: child,),
-            Positioned(child: BottomNavigation(), bottom: 0,)
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: QRFloatingActionButton()
-    );
+        body: SafeArea(child: child),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: QRFloatingActionButton());
   }
 }

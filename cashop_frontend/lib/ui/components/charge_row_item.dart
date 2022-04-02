@@ -7,29 +7,50 @@ class ChargeRowItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical:4, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: SizedBox(
         height: 50,
         child: Row(
           children: <Widget>[
-            const Icon(Icons.circle, color: ColorPalette.silver, size: 16,),
-            SizedBox(width: 16,),
-            RichText(text: TextSpan(
-              text:'\$508',
-              style: Theme.of(context).textTheme.bodyText1,
-              children: [
-                TextSpan(
-                  text: ',4',
-                  style: Theme.of(context).textTheme.bodyText2
-                )
-              ]
-            )),
-            Spacer(),
-            Text('Hoy', style: Theme.of(context).textTheme.caption?.copyWith(color: ColorPalette.silver),),
-            SizedBox(width: 4,),
-            Text('14:23', style: Theme.of(context).textTheme.caption,),
-            SizedBox(width: 8,),
-            const Icon(Icons.check, color: ColorPalette.algaeGreen, size: 16,)
+            const Icon(
+              Icons.circle,
+              color: ColorPalette.silver,
+              size: 16,
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+            RichText(
+                text: TextSpan(
+                    text: '\$508',
+                    style: Theme.of(context).textTheme.bodyText1,
+                    children: [
+                  TextSpan(
+                      text: ',4', style: Theme.of(context).textTheme.bodyText2)
+                ])),
+            const Spacer(),
+            Text(
+              'Hoy',
+              style: Theme.of(context)
+                  .textTheme
+                  .caption
+                  ?.copyWith(color: ColorPalette.silver),
+            ),
+            const SizedBox(
+              width: 4,
+            ),
+            Text(
+              '14:23',
+              style: Theme.of(context).textTheme.caption,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            const Icon(
+              Icons.check,
+              color: ColorPalette.algaeGreen,
+              size: 16,
+            )
           ],
         ),
       ),

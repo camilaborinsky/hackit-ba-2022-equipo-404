@@ -14,9 +14,14 @@ class ListHeader extends StatelessWidget {
             style: Theme.of(context).textTheme.caption,
           ),
           Spacer(),
-          Icon(Icons.access_time_rounded, size: 14,),
-          Icon(Icons.arrow_downward, size: 14,)
-
+          Icon(
+            Icons.access_time_rounded,
+            size: 14,
+          ),
+          Icon(
+            Icons.arrow_downward,
+            size: 14,
+          )
         ],
       ),
     );

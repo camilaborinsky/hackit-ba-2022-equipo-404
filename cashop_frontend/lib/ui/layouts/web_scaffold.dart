@@ -27,13 +27,7 @@ class WebScaffold extends StatelessWidget {
             horizontal: (MediaQuery.of(context).size.width - 800) / 2),
         child: Container(
           color: ColorPalette.white,
-          child: SafeArea(
-              child: Stack(
-            children: <Widget>[
-              Container(child: child,),
-            Positioned(child: BottomNavigation(width: 800,), bottom: 0,)
-            ],
-          )),
+          child: SafeArea(child: child),
         ),
       ),
     );

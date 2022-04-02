@@ -14,25 +14,44 @@ class AccountHeader extends StatelessWidget {
         children: <Widget>[
           IconButton(
             iconSize: 50,
-            onPressed: (){}, 
-            icon: const Icon(Icons.help_outline_rounded, color: ColorPalette.doveGrey,), 
-            color: ColorPalette.athensGrey,),
+            onPressed: () {},
+            icon: const Icon(
+              Icons.help_outline_rounded,
+              color: ColorPalette.doveGrey,
+            ),
+            color: ColorPalette.athensGrey,
+          ),
           Column(
             children: [
-              Text('SALDO', style: Theme.of(context).textTheme.bodyText2,),
-               const MoneyLabel(),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Próxima acreditación: ', style: Theme.of(context).textTheme.caption,),
-          Text('2d y 3h', style: Theme.of(context).textTheme.caption?.copyWith(color: ColorPalette.doveGrey),)
-        ],
-      )
+              Text(
+                'SALDO',
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
+              const MoneyLabel(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Próxima acreditación: ',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  Text(
+                    '2d y 3h',
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption
+                        ?.copyWith(color: ColorPalette.doveGrey),
+                  )
+                ],
+              )
             ],
           ),
           const Padding(
             padding: EdgeInsets.all(8.0),
-            child: CircleAvatar(radius: 25, backgroundColor: ColorPalette.emerald, ),
+            child: CircleAvatar(
+              radius: 25,
+              backgroundColor: ColorPalette.emerald,
+            ),
           )
         ],
       ),
@@ -48,9 +67,22 @@ class MoneyLabel extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('\$', style: Theme.of(context).textTheme.bodyText1?.copyWith(color: ColorPalette.emerald), ),
-        Text('12.420', style: Theme.of(context).textTheme.headline1,),
-        Text('61',style: Theme.of(context).textTheme.bodyText1?.copyWith(color: ColorPalette.emerald) ),
+        Text(
+          '\$',
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              ?.copyWith(color: ColorPalette.emerald),
+        ),
+        Text(
+          '12.420',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        Text('61',
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(color: ColorPalette.emerald)),
       ],
     );
   }

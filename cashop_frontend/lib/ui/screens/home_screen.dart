@@ -11,13 +11,14 @@ import 'package:cashop_frontend/ui/layouts/web_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/api/api_response.dart';
+import '../../data/api/wallet_api.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   static Map<BottomNavigationRoutes, Widget> homeWidgets = {
     BottomNavigationRoutes.home: HomeView(),
-    BottomNavigationRoutes.wallet: const WalletView()
+    BottomNavigationRoutes.wallet:  WalletView()
   };
 
   @override
@@ -104,7 +105,7 @@ class _HomeViewState extends State<HomeView> {
           } else if (snapshot.hasData) {
             print("SNAPSHOT DATA====");
             print(snapshot.data);
-            List<Charge> charges =[];
+            List<Charge> charges = [];
             ApiResponse<List<Charge>>? apiResponseCharges = snapshot.data;
             if (apiResponseCharges?.success ?? false) {
               List<Charge>? chargesData = apiResponseCharges?.data;
@@ -152,72 +153,84 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-// class HomeView extends StatelessWidget {
-//   const HomeView({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return
-//     return CustomScrollView(
-//       slivers: <Widget>[
-//         SliverAppBar(
-//           expandedHeight: 180.0,
-//           collapsedHeight: 180,
-//           backgroundColor: ColorPalette.white,
-//           centerTitle: true,
-//           pinned: true,
-//           flexibleSpace: Column(
-//             children: const <Widget>[
-//               AccountHeader(),
-//               SizedBox(
-//                 height: 16,
-//               ),
-//               ListHeader(
-//                 title: 'Transacciones',
-//               ),
-//             ],
-//           ),
-//         ),
-//         SliverList(
-//             delegate: SliverChildBuilderDelegate(
-//                 (context, index) => ChargeRowItem(
-//                     Charge(1, Price("ARS", 1500.65), [], "CONFIRMED")),
-//                 childCount: 1))
-//       ],
-//     );
-//   }
-// }
 
-class WalletView extends StatelessWidget {
-  const WalletView({Key? key}) : super(key: key);
+class WalletView extends StatefulWidget {
+  WalletView({Key? key}) : super(key: key);
+
+  @override
+  State<WalletView> createState() => _WalletViewState();
+}
+
+class _WalletViewState extends State<WalletView> {
+  late WalletApi walletApi;
+
+  @override
+  void initState() {
+    walletApi = WalletApi("http://localhost:8000");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          expandedHeight: 210,
-          collapsedHeight: 210,
-          backgroundColor: ColorPalette.white,
-          centerTitle: true,
-          pinned: true,
-          flexibleSpace: Column(
-            children: const <Widget>[
-              AccountHeader(
-                withButtons: true,
-              ),
-              ListHeader(title: 'Monedas'),
-              const SizedBox(
-                height: 16,
-              ),
-            ],
-          ),
-        ),
-        SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => const CoinRow(),
-                childCount: 30))
-      ],
+    return FutureBuilder<ApiResponse<List<Coin>>>(
+      future: walletApi.getWallet(),
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<ApiResponse<List<Coin>>> snapshot,
+      ) {
+        print(snapshot.connectionState);
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            return const Text('Error');
+          } else if (snapshot.hasData) {
+            print("SNAPSHOT DATA====");
+            print(snapshot.data);
+            List<Coin> coins = [];
+            ApiResponse<List<Coin>>? apiResponseCoins = snapshot.data;
+            if (apiResponseCoins?.success ?? false) {
+              List<Coin>? coinsData = apiResponseCoins?.data;
+              if (coinsData != null) {
+                coins = coinsData
+                    .map((e) => Coin(e.currency, e.abbreviation, e.amount))
+                    .toList();
+              }
+            }
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  expandedHeight: 210,
+                  collapsedHeight: 210,
+                  backgroundColor: ColorPalette.white,
+                  centerTitle: true,
+                  pinned: true,
+                  flexibleSpace: Column(
+                    children: const <Widget>[
+                      AccountHeader(
+                        withButtons: true,
+                      ),
+                      ListHeader(title: 'Monedas'),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
+                  ),
+                ),
+                SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                        (context, index) =>  CoinRow(coins[index]),
+                        childCount: coins.length))
+              ],
+            );
+          } else {
+            return const Text('Empty data');
+          }
+        } else {
+          return Text('State: ${snapshot.connectionState}');
+        }
+      },
     );
   }
 }

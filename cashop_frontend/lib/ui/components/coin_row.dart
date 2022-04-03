@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../data/api/wallet_api.dart';
+
 class CoinRow extends StatelessWidget {
-  const CoinRow({Key? key}) : super(key: key);
+
+  Coin coin;
+  CoinRow(this.coin, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class CoinRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'BTC',
+                  coin.abbreviation,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1
@@ -35,7 +39,7 @@ class CoinRow extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                Text('Bitcoin', style: Theme.of(context).textTheme.bodyText2)
+                Text(coin.currency, style: Theme.of(context).textTheme.bodyText2)
               ],
             ),
             const Spacer(),
@@ -43,7 +47,7 @@ class CoinRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Text('0,09372097'),
+                 Text(coin.amount.toString()),
                 const SizedBox(
                   height: 4,
                 ),

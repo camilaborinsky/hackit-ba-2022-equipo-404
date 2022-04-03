@@ -9,13 +9,14 @@ class AccountHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(left: 16, right: 16, top: 12, bottom: withButtons? 0 : 16),
+      padding: EdgeInsets.only(
+          left: 16, right: 16, top: 12, bottom: withButtons ? 0 : 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           IconButton(
-            iconSize: 50,
+            iconSize: 40,
             onPressed: () {},
             icon: const Icon(
               Icons.help_outline_rounded,
@@ -46,68 +47,99 @@ class AccountHeader extends StatelessWidget {
                   )
                 ],
               ),
-              if(withButtons)
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Wrap(
-                  spacing: 12,
-                  children: <Widget>[
-                    TextButton(
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>((states) => const EdgeInsets.only(bottom: 14, top: 12, left: 16, right: 16)),
-                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.disabled)) {
-                        return ColorPalette.athensGrey.withOpacity(0.3);
-                      } else {
-                        return ColorPalette.athensGrey;
-                      }
-                      }),
-                      ),
-                      onPressed: () {
+              if (withButtons)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Wrap(
+                    spacing: 12,
+                    children: <Widget>[
+                      TextButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.resolveWith<
+                                  EdgeInsetsGeometry>(
+                              (states) => const EdgeInsets.only(
+                                  bottom: 14, top: 12, left: 16, right: 16)),
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith<Color>(
+                                  (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.disabled)) {
+                              return ColorPalette.athensGrey.withOpacity(0.3);
+                            } else {
+                              return ColorPalette.athensGrey;
+                            }
+                          }),
+                        ),
+                        onPressed: () {
                           // Respond to button press
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children:  <Widget>[
-                          const Padding(
-                            padding: EdgeInsets.only(right:8.0),
-                            child: Icon(Icons.arrow_upward_rounded, size: 18, color: ColorPalette.doveGrey, ),
-                          ),
-                          Text('ENVIAR', style: Theme.of(context).textTheme.caption?.copyWith(color: ColorPalette.doveGrey, fontWeight: FontWeight.bold),),
-                        ],
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.only(right: 8.0),
+                              child: Icon(
+                                Icons.arrow_upward_rounded,
+                                size: 18,
+                                color: ColorPalette.doveGrey,
+                              ),
+                            ),
+                            Text(
+                              'ENVIAR',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  ?.copyWith(
+                                      color: ColorPalette.doveGrey,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    TextButton(
-                    
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>((states) => const EdgeInsets.only(bottom: 14, top: 12, left: 16, right: 16)),
-                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.disabled)) {
-                        return ColorPalette.athensGrey.withOpacity(0.3);
-                      } else {
-                        return ColorPalette.athensGrey;
-                      }
-                      }),
-                      ),
-                      onPressed: () {
+                      TextButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.resolveWith<
+                                  EdgeInsetsGeometry>(
+                              (states) => const EdgeInsets.only(
+                                  bottom: 14, top: 12, left: 16, right: 16)),
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith<Color>(
+                                  (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.disabled)) {
+                              return ColorPalette.athensGrey.withOpacity(0.3);
+                            } else {
+                              return ColorPalette.athensGrey;
+                            }
+                          }),
+                        ),
+                        onPressed: () {
                           // Respond to button press
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children:  <Widget>[
-                          const Padding(
-                            padding: EdgeInsets.only(right:8.0),
-                            child: Icon(Icons.arrow_downward_rounded, size: 18, color: ColorPalette.doveGrey, ),
-                          ),
-                          Text('RECIBIR', style: Theme.of(context).textTheme.caption?.copyWith(color: ColorPalette.doveGrey, fontWeight: FontWeight.bold),),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.only(right: 8.0),
+                              child: Icon(
+                                Icons.arrow_downward_rounded,
+                                size: 18,
+                                color: ColorPalette.doveGrey,
+                              ),
+                            ),
+                            Text(
+                              'RECIBIR',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  ?.copyWith(
+                                      color: ColorPalette.doveGrey,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
             ],
           ),
           const Padding(

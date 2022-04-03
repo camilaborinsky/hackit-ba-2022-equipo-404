@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildComponent(BuildContext context, double width) {
     return Stack(
       children: <Widget>[
-        HomeScreen.homeWidgets[currentIndex]?? Container(),
+        HomeScreen.homeWidgets[currentIndex] ?? Container(),
         Positioned(
           child: BottomNavigation(
             width: width,
@@ -85,7 +85,9 @@ class HomeView extends StatelessWidget {
           flexibleSpace: Column(
             children: const <Widget>[
               AccountHeader(),
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               ListHeader(
                 title: 'Transacciones',
               ),
@@ -93,16 +95,14 @@ class HomeView extends StatelessWidget {
           ),
         ),
         SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => ChargeRowItem(Charge(1,Price("ARS",1500.65),[],"CONFIRMED")),
-                    childCount: 10
-                    ))
-
+            delegate: SliverChildBuilderDelegate(
+                (context, index) => ChargeRowItem(
+                    Charge(1, Price("ARS", 1500.65), [], "CONFIRMED")),
+                childCount: 10))
       ],
     );
   }
 }
-
 
 class WalletView extends StatelessWidget {
   const WalletView({Key? key}) : super(key: key);
@@ -119,10 +119,13 @@ class WalletView extends StatelessWidget {
           pinned: true,
           flexibleSpace: Column(
             children: const <Widget>[
-              AccountHeader(withButtons: true,),
+              AccountHeader(
+                withButtons: true,
+              ),
               ListHeader(title: 'Monedas'),
-              const SizedBox(height: 16,),
-
+              const SizedBox(
+                height: 16,
+              ),
             ],
           ),
         ),

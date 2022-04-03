@@ -29,7 +29,9 @@ class ChargeRowItem extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                     children: [
                   TextSpan(
-                      text: ',${((charge.price.amount -charge.price.amount.floor())*100).toInt()}', style: Theme.of(context).textTheme.bodyText2)
+                      text:
+                          ',${((charge.price.amount - charge.price.amount.floor()) * 100).toInt()}',
+                      style: Theme.of(context).textTheme.bodyText2)
                 ])),
             const Spacer(),
             Text(

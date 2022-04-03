@@ -48,77 +48,80 @@ class _BottomNavigationState extends State<BottomNavigation> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 InkWell(
-                  child: SizedBox(
-                    width: finalWidth / 3,
-                    child: 
-                    // IconButton(
-                    //     icon: 
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                          Icon(
-                            Icons.home,
-                            color: currentIndex == BottomNavigationRoutes.home
-                                ? ColorPalette.emerald
-                                : ColorPalette.doveGrey,
-                          ),
-                          Text('Inicio',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                    fontSize: 12,
-                                        color: currentIndex ==
-                                                BottomNavigationRoutes.home
-                                            ? ColorPalette.emerald
-                                            : ColorPalette.doveGrey,
-                                      )),
-                        ]),
-                       
-                        // ),
-                  ),
-                   onTap: () {
-                          setState(() {
-                            currentIndex = BottomNavigationRoutes.home;
-                          });
-                          widget.onNavigationTapped(currentIndex);
-                        }
-                ),
-                
+                    child: SizedBox(
+                      width: finalWidth / 3,
+                      child:
+                          // IconButton(
+                          //     icon:
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            Icon(
+                              Icons.home,
+                              color: currentIndex == BottomNavigationRoutes.home
+                                  ? ColorPalette.emerald
+                                  : ColorPalette.doveGrey,
+                            ),
+                            Text('Inicio',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption
+                                    ?.copyWith(
+                                      fontSize: 12,
+                                      color: currentIndex ==
+                                              BottomNavigationRoutes.home
+                                          ? ColorPalette.emerald
+                                          : ColorPalette.doveGrey,
+                                    )),
+                          ]),
+
+                      // ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        currentIndex = BottomNavigationRoutes.home;
+                      });
+                      widget.onNavigationTapped(currentIndex);
+                    }),
+
                 // Spacer(),
-                 InkWell(
-                  child: SizedBox(
-                    width: finalWidth / 3,
-                    child: 
-                    // IconButton(
-                    //     icon: 
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                          Icon(
-                            Icons.account_balance_wallet_rounded,
-                            color: currentIndex == BottomNavigationRoutes.wallet
-                                ? ColorPalette.emerald
-                                : ColorPalette.doveGrey,
-                          ),
-                          Text('Monedas',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                    fontSize: 12,
-                                        color: currentIndex ==
-                                                BottomNavigationRoutes.wallet
-                                            ? ColorPalette.emerald
-                                            : ColorPalette.doveGrey,
-                                      )),
-                        ]),
-                       
-                        // ),
-                  ),
-                   onTap: () {
-                          setState(() {
-                            currentIndex = BottomNavigationRoutes.wallet;
-                          });
-                          widget.onNavigationTapped(currentIndex);
-                        }
-                ),
+                InkWell(
+                    child: SizedBox(
+                      width: finalWidth / 3,
+                      child:
+                          // IconButton(
+                          //     icon:
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            Icon(
+                              Icons.account_balance_wallet_rounded,
+                              color:
+                                  currentIndex == BottomNavigationRoutes.wallet
+                                      ? ColorPalette.emerald
+                                      : ColorPalette.doveGrey,
+                            ),
+                            Text('Monedas',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption
+                                    ?.copyWith(
+                                      fontSize: 12,
+                                      color: currentIndex ==
+                                              BottomNavigationRoutes.wallet
+                                          ? ColorPalette.emerald
+                                          : ColorPalette.doveGrey,
+                                    )),
+                          ]),
+
+                      // ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        currentIndex = BottomNavigationRoutes.wallet;
+                      });
+                      widget.onNavigationTapped(currentIndex);
+                    }),
               ],
             ),
           )),
@@ -141,15 +144,18 @@ class QRFloatingActionButton extends StatelessWidget {
               Icons.qr_code_2_rounded,
               size: 32,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, 'charge');
+            },
           ),
-          const SizedBox(height: 4,),
+          const SizedBox(
+            height: 4,
+          ),
           Text('Cobrar',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                    fontSize: 12,
-                                        color: ColorPalette.doveGrey,
-                                      )),
+              style: Theme.of(context).textTheme.caption?.copyWith(
+                    fontSize: 12,
+                    color: ColorPalette.doveGrey,
+                  )),
         ],
       ),
     );

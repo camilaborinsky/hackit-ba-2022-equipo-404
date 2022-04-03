@@ -3,14 +3,15 @@ import 'package:cashop_frontend/ui/components/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 
 class WebScaffold extends StatelessWidget {
-  const WebScaffold({Key? key, required this.child}) : super(key: key);
+  const WebScaffold({Key? key, required this.child, this.withFloating = true}) : super(key: key);
   final Widget child;
+  final bool withFloating;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       backgroundColor: ColorPalette.white,
-      floatingActionButton: QRFloatingActionButton(),
+      floatingActionButton: withFloating ? QRFloatingActionButton() : null,
       // appBar: AppBar(
       //   iconTheme: const IconThemeData(color: ColorPalette.capeCod),
       //   automaticallyImplyLeading: state.business != null,

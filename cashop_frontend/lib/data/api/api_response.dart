@@ -17,7 +17,6 @@ class ApiResponse<T> extends Equatable {
     return ApiResponse<T>(
       url:
           "${error.requestOptions.path}/${error.requestOptions.queryParameters}",
-      
       statusCode: error.response?.statusCode ?? 500,
     );
   }
@@ -35,7 +34,7 @@ class ApiResponse<T> extends Equatable {
   final int statusCode;
 
   bool get success {
-    return statusCode <300 && statusCode >=200;
+    return statusCode < 300 && statusCode >= 200;
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -45,6 +44,5 @@ class ApiResponse<T> extends Equatable {
       };
 
   @override
-  List<Object?> get props =>
-      <Object?>[url, data, statusCode];
+  List<Object?> get props => <Object?>[url, data, statusCode];
 }

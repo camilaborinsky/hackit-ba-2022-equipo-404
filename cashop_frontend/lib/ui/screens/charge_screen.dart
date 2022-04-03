@@ -1,3 +1,4 @@
+import 'package:cashop_frontend/data/api/wallet_api.dart';
 import 'package:cashop_frontend/layout/responsive_interface.dart';
 import 'package:cashop_frontend/style/color_palette.dart';
 import 'package:cashop_frontend/style/font_family.dart';
@@ -238,7 +239,7 @@ class _QRPageState extends State<QRPage> {
             primary: false,
             // padding:  EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width - (200*2+24+24))/2),
             shrinkWrap: true,
-            itemCount: 5,
+            itemCount: CryptoCoin.availableCoins.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
@@ -257,7 +258,7 @@ class _QRPageState extends State<QRPage> {
                     //TODO: regenerar QR
                   }
                 },
-                child: AvailableCoinItem(selected: index == currentCoin)),
+                child: AvailableCoinItem(selected: index == currentCoin, cryptoCoin: CryptoCoin.availableCoins[index],)),
           ),
         ),
         Padding(
@@ -350,9 +351,10 @@ class ActionIconButton extends StatelessWidget {
 }
 
 class AvailableCoinItem extends StatelessWidget {
-  const AvailableCoinItem({Key? key, required this.selected}) : super(key: key);
+  const AvailableCoinItem({Key? key, required this.selected, required this.cryptoCoin}) : super(key: key);
 
   final bool selected;
+  final CryptoCoin cryptoCoin;
 
   @override
   Widget build(BuildContext context) {
@@ -370,9 +372,10 @@ class AvailableCoinItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: 30,
-            backgroundColor: ColorPalette.algaeGreen,
+            backgroundColor: ColorPalette.transparent,
+            backgroundImage: AssetImage(cryptoCoin.iconPath),
           ),
           const SizedBox(
             width: 12,
@@ -383,7 +386,7 @@ class AvailableCoinItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 4.0),
                 child: Text(
-                  'BTC',
+                  cryptoCoin.abbreviation,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1
@@ -393,18 +396,18 @@ class AvailableCoinItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    '0.60%',
+                    "${cryptoCoin.performance.abs().toStringAsFixed(2)}%",
                     style: Theme.of(context)
                         .textTheme
                         .caption
-                        ?.copyWith(color: ColorPalette.algaeGreen),
+                        ?.copyWith(color: cryptoCoin.performance > 0 ? ColorPalette.algaeGreen : ColorPalette.yourPink),
                   ),
                   const SizedBox(
                     width: 4,
                   ),
-                  const Icon(
+                  Icon(
                     Icons.arrow_drop_up_outlined,
-                    color: ColorPalette.algaeGreen,
+                    color: cryptoCoin.performance > 0 ? ColorPalette.algaeGreen : ColorPalette.yourPink,
                   )
                 ],
               )

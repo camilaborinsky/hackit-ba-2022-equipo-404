@@ -30,7 +30,7 @@ class _ApiMethodsTestState extends State<ApiMethodsTest> {
       child: Column(children: [
         Row(children: [
           TextButton(
-            child: Text("Get Charges"),
+            child: const Text("Get Charges"),
             onPressed: () async {
               ApiResponse<List<Charge>> apiResponseCharges =
                   await chargesApi.getCharges();
@@ -47,7 +47,7 @@ class _ApiMethodsTestState extends State<ApiMethodsTest> {
             },
           ),
           TextButton(
-            child: Text("Add Charge"),
+            child: const Text("Add Charge"),
             onPressed: () async {
               Price newChargePrice = Price("ARS", 999);
               ApiResponse<Charge> apiResponseCreateCharge =
@@ -59,7 +59,7 @@ class _ApiMethodsTestState extends State<ApiMethodsTest> {
           )
         ]),
         ...charges.map((e) => ChargeRowItem(e)).toList(),
-        Text("WALLET"),
+        const Text("WALLET"),
         TextButton(
             onPressed: () async {
               ApiResponse<List<Coin>> apiResponseWallet =
@@ -68,12 +68,10 @@ class _ApiMethodsTestState extends State<ApiMethodsTest> {
                 List<Coin>? coins = apiResponseWallet.data;
                 if (coins != null) {
                   wallet = coins;
-                  print("WALLET=======");
-                  print(wallet);
                 }
               }
             },
-            child: Text("GET WALLET INFO"))
+            child: const Text("GET WALLET INFO"))
       ]),
     );
   }

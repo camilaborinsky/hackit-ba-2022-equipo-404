@@ -96,15 +96,12 @@ class _HomeViewState extends State<HomeView> {
         BuildContext context,
         AsyncSnapshot<ApiResponse<List<Charge>>> snapshot,
       ) {
-        print(snapshot.connectionState);
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         } else if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
             return const Text('Error');
           } else if (snapshot.hasData) {
-            print("SNAPSHOT DATA====");
-            print(snapshot.data);
             List<Charge> charges = [];
             ApiResponse<List<Charge>>? apiResponseCharges = snapshot.data;
             if (apiResponseCharges?.success ?? false) {
@@ -179,15 +176,13 @@ class _WalletViewState extends State<WalletView> {
         BuildContext context,
         AsyncSnapshot<ApiResponse<List<Coin>>> snapshot,
       ) {
-        print(snapshot.connectionState);
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
             return const Text('Error');
           } else if (snapshot.hasData) {
-            print("SNAPSHOT DATA====");
-            print(snapshot.data);
+  
             List<Coin> coins = [];
             ApiResponse<List<Coin>>? apiResponseCoins = snapshot.data;
             if (apiResponseCoins?.success ?? false) {
@@ -212,7 +207,7 @@ class _WalletViewState extends State<WalletView> {
                         withButtons: true,
                       ),
                       ListHeader(title: 'Monedas'),
-                      const SizedBox(
+                      SizedBox(
                         height: 16,
                       ),
                     ],

@@ -112,7 +112,7 @@ class AccountHeader extends StatelessWidget {
                           }),
                         ),
                         onPressed: () {
-                          // Respond to button press
+                          Navigator.of(context).pushNamed('/charge');
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

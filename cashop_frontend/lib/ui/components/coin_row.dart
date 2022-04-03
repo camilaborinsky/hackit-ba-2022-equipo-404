@@ -1,14 +1,16 @@
+import 'package:cashop_frontend/style/color_palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/api/wallet_api.dart';
 
 class CoinRow extends StatelessWidget {
-
   Coin coin;
   CoinRow(this.coin, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    CryptoCoin cryptoCoin = CryptoCoin.availableCoins
+        .firstWhere((element) => element.abbreviation == coin.abbreviation);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: SizedBox(
@@ -19,7 +21,9 @@ class CoinRow extends StatelessWidget {
             Container(
                 height: 70,
                 alignment: Alignment.center,
-                child: const CircleAvatar(
+                child:  CircleAvatar(
+                  backgroundColor: ColorPalette.transparent,
+                  backgroundImage: AssetImage(cryptoCoin.iconPath),
                   radius: 18,
                 )),
             const SizedBox(
@@ -39,7 +43,8 @@ class CoinRow extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                Text(coin.currency, style: Theme.of(context).textTheme.bodyText2)
+                Text(coin.currency,
+                    style: Theme.of(context).textTheme.bodyText2)
               ],
             ),
             const Spacer(),
@@ -47,18 +52,18 @@ class CoinRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                 Text(coin.amount.toString()),
+                Text(coin.amount.toString()),
                 const SizedBox(
                   height: 4,
                 ),
                 RichText(
                     textAlign: TextAlign.end,
                     text: TextSpan(
-                        text: '\$508',
+                        text: '\$${coin.amount.floor()}',
                         style: Theme.of(context).textTheme.caption,
                         children: [
                           TextSpan(
-                              text: ',4',
+                              text: ',${(coin.amount - coin.amount.floor())}',
                               style: Theme.of(context).textTheme.caption)
                         ])),
               ],

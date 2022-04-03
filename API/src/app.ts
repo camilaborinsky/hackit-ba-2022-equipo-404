@@ -1,4 +1,4 @@
-import express, { response } from "express"
+import express from "express"
 
 const app = express()
 app.use(express.json())
@@ -16,22 +16,68 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => res.send("Express + Typescript Server Rockstar"))
 let id = 2
 const addresses = [
-	{ currency: "bitcoinLN", address: "adsfadsf", amount: 0.000000923 },
-	{ currency: "bnb", address: "adsfadsf", amount: 0.000000923 },
-	{ currency: "xrp", address: "adsfasdf", amount: 0.000000923 },
-	{ currency: "polygon", address: "adsfasdf", amount: 0.000000923 },
-	{ currency: "cardano", address: "gsdfsdf", amount: 10 },
-	{ currency: "usdt", address: "sdfgsdfg", amount: 0.000000923 },
-	{ currency: "dai", address: "sdfgsdfg", amount: 0.000000923 },
+	{
+		currency: "Bitcoin Lightning Network",
+		abbreviation: "btcLN",
+		address: "adsfadsf",
+		amount: 0.000000923,
+	},
+	{
+		currency: "Avalanche",
+		abbreviation: "AVAX",
+		address: "adsfadsf",
+		amount: 0.000000923,
+	},
+	{
+		currency: "Ripple",
+		abbreviation: "XRP",
+		address: "adsfasdf",
+		amount: 0.000000923,
+	},
+	{
+		currency: "Solana",
+		abbreviation: "SOL",
+		address: "aksldfja;sl",
+		amount: 3.4,
+	},
+	{
+		currency: "Polkadot",
+		abbreviation: "DOT",
+		address: "adsfasdf",
+		amount: 0.000000923,
+	},
+	{
+		currency: "TetherUSD TRC-20",
+		abbreviation: "USDT-TRC20",
+		address: "gsdfsdf",
+		amount: 10,
+	},
+	{
+		currency: "TerraUSD",
+		abbreviation: "UST",
+		address: "sdfgsdfg",
+		amount: 0.000000923,
+	},
+	{
+		currency: "nuARS",
+		abbreviation: "nuARS",
+		address: "sdfgsdfg",
+		amount: 0.000000923,
+	},
 ]
 const wallet = [
-	{ currency: "bitcoinLN", abbreviation: "btcLN", amount: 0.023 },
-	{ currency: "BNB", abbreviation: "BNB", amount: 0.48 },
+	{
+		currency: "Bitcoin Lightning Network",
+		abbreviation: "btcLN",
+		amount: 0.023,
+	},
+	{ currency: "Avalanche", abbreviation: "AVAX", amount: 0.48 },
+	{ currency: "Solana", abbreviation: "SOL", amount: 2.8 },
 	{ currency: "Ripple", abbreviation: "XRP", amount: 149 },
-	{ currency: "Polygon", abbreviation: "MATIC", amount: 24 },
-	{ currency: "cardano", abbreviation: "ADA", amount: 708 },
+	{ currency: "Polkadot", abbreviation: "DOT", amount: 24 },
+	{ currency: "TetherUSD TRC-20", abbreviation: "USDT-TRC20", amount: 708 },
 	{ currency: "TerraUSD", abbreviation: "UST", amount: 59 },
-	{ currency: "Dai", abbreviation: "DAI", amount: 12 },
+	{ currency: "nuARS", abbreviation: "nuARS", amount: 8500 },
 ]
 
 const chargeResponse = (price) => {

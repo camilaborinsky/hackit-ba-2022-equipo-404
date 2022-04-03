@@ -10,11 +10,13 @@ import 'package:cashop_frontend/ui/layouts/mobile_scaffold.dart';
 import 'package:cashop_frontend/ui/layouts/web_scaffold.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/api/api_response.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   static Map<BottomNavigationRoutes, Widget> homeWidgets = {
-    BottomNavigationRoutes.home: const HomeView(),
+    BottomNavigationRoutes.home: HomeView(),
     BottomNavigationRoutes.wallet: const WalletView()
   };
 
@@ -69,40 +71,122 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+class HomeView extends StatefulWidget {
+  HomeView({Key? key}) : super(key: key);
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  late ChargesApi chargesApi;
+
+  @override
+  void initState() {
+    chargesApi = ChargesApi("http://localhost:8000");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          expandedHeight: 180.0,
-          collapsedHeight: 180,
-          backgroundColor: ColorPalette.white,
-          centerTitle: true,
-          pinned: true,
-          flexibleSpace: Column(
-            children: const <Widget>[
-              AccountHeader(),
-              SizedBox(
-                height: 16,
-              ),
-              ListHeader(
-                title: 'Transacciones',
-              ),
-            ],
-          ),
-        ),
-        SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => ChargeRowItem(
-                    Charge(1, Price("ARS", 1500.65), [], "CONFIRMED")),
-                childCount: 10))
-      ],
+    return FutureBuilder<ApiResponse<List<Charge>>>(
+      future: chargesApi.getCharges(),
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<ApiResponse<List<Charge>>> snapshot,
+      ) {
+        print(snapshot.connectionState);
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            return const Text('Error');
+          } else if (snapshot.hasData) {
+            print("SNAPSHOT DATA====");
+            print(snapshot.data);
+            List<Charge> charges =[];
+            ApiResponse<List<Charge>>? apiResponseCharges = snapshot.data;
+            if (apiResponseCharges?.success ?? false) {
+              List<Charge>? chargesData = apiResponseCharges?.data;
+              if (chargesData != null) {
+                charges = chargesData
+                    .map((e) => Charge(e.id, e.price, e.addresses, e.state))
+                    .toList();
+              }
+            }
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  expandedHeight: 180.0,
+                  collapsedHeight: 180,
+                  backgroundColor: ColorPalette.white,
+                  centerTitle: true,
+                  pinned: true,
+                  flexibleSpace: Column(
+                    children: const <Widget>[
+                      AccountHeader(),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      ListHeader(
+                        title: 'Transacciones',
+                      ),
+                    ],
+                  ),
+                ),
+                SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                        (context, index) => ChargeRowItem(charges[index]
+                            //Charge(1, Price("ARS", 1500.65), [], "CONFIRMED")
+                            ),
+                        childCount: charges.length))
+              ],
+            );
+          } else {
+            return const Text('Empty data');
+          }
+        } else {
+          return Text('State: ${snapshot.connectionState}');
+        }
+      },
     );
   }
 }
+// class HomeView extends StatelessWidget {
+//   const HomeView({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return
+//     return CustomScrollView(
+//       slivers: <Widget>[
+//         SliverAppBar(
+//           expandedHeight: 180.0,
+//           collapsedHeight: 180,
+//           backgroundColor: ColorPalette.white,
+//           centerTitle: true,
+//           pinned: true,
+//           flexibleSpace: Column(
+//             children: const <Widget>[
+//               AccountHeader(),
+//               SizedBox(
+//                 height: 16,
+//               ),
+//               ListHeader(
+//                 title: 'Transacciones',
+//               ),
+//             ],
+//           ),
+//         ),
+//         SliverList(
+//             delegate: SliverChildBuilderDelegate(
+//                 (context, index) => ChargeRowItem(
+//                     Charge(1, Price("ARS", 1500.65), [], "CONFIRMED")),
+//                 childCount: 1))
+//       ],
+//     );
+//   }
+// }
 
 class WalletView extends StatelessWidget {
   const WalletView({Key? key}) : super(key: key);

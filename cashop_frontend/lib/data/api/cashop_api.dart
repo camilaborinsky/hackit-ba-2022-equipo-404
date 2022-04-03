@@ -66,7 +66,7 @@ abstract class CashopApi {
     required String url,
     required dynamic body,
     required T Function(Map<String, dynamic> data) mapper,
-    bool secured = true,
+    bool secured = false,
     bool chat = false,
   }) async {
     // developer.log(
@@ -77,8 +77,7 @@ abstract class CashopApi {
     return dio
         .post<Map<String, dynamic>>(
       _apiHost + url,
-      data: body,
-      options: _getRequestOptions(secured: secured),
+      data: body
     )
         .then(
       (dynamic response) {

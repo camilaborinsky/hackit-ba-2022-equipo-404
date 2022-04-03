@@ -12,6 +12,13 @@ class ChargesApi extends CashopApi {
             .map((e) => Charge.fromJson(e))
             .toList());
   }
+
+  Future<ApiResponse<Charge>> createCharge(Price price) {
+    return super.post(
+        url: "/charges",
+        body: price.toJson(),
+        mapper: (json) => Charge.fromJson(json['data']));
+  }
 }
 
 class Charge {
@@ -73,5 +80,11 @@ class Price {
   @override
   String toString() {
     return "Price{currency:$currency,amount:$amount}";
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "price": {"currency":currency, "amount":amount}
+    };
   }
 }

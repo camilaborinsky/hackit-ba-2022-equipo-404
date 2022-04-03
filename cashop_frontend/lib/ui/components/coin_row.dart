@@ -9,6 +9,7 @@ class CoinRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("${coin.abbreviation}");
     CryptoCoin cryptoCoin = CryptoCoin.availableCoins
         .firstWhere((element) => element.abbreviation == coin.abbreviation);
     return Padding(
@@ -21,7 +22,7 @@ class CoinRow extends StatelessWidget {
             Container(
                 height: 70,
                 alignment: Alignment.center,
-                child:  CircleAvatar(
+                child: CircleAvatar(
                   backgroundColor: ColorPalette.transparent,
                   backgroundImage: AssetImage(cryptoCoin.iconPath),
                   radius: 18,
@@ -52,20 +53,20 @@ class CoinRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(coin.amount.toString()),
+                Text(coin.amount.toStringAsFixed(5)),
                 const SizedBox(
                   height: 4,
                 ),
-                RichText(
-                    textAlign: TextAlign.end,
-                    text: TextSpan(
-                        text: '\$${coin.amount.floor()}',
-                        style: Theme.of(context).textTheme.caption,
-                        children: [
-                          TextSpan(
-                              text: ',${(coin.amount - coin.amount.floor())}',
-                              style: Theme.of(context).textTheme.caption)
-                        ])),
+                // RichText(
+                //     textAlign: TextAlign.end,
+                //     text: TextSpan(
+                //         text: '\$${coin.amount.floor()}',
+                //         style: Theme.of(context).textTheme.caption,
+                //         children: [
+                          // TextSpan(
+                          //     text: ',${((coin.amount - coin.amount.floor())*10000).toStringAsFixed(0)}',
+                          //     style: Theme.of(context).textTheme.caption)
+                        // ])),
               ],
             )
           ],

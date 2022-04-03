@@ -45,7 +45,11 @@ class _ChargeScreenState extends State<ChargeScreen> {
           children: [
             IconButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  if (pageController.page == 0) {
+                    Navigator.of(context).pop();
+                  } else {
+                    _previousPage();
+                  }
                 },
                 icon: const Icon(
                   Icons.arrow_back_ios_new_rounded,
@@ -74,16 +78,32 @@ class _ChargeScreenState extends State<ChargeScreen> {
             child: PageView(
               controller: pageController,
               children: <Widget>[
-                PriceInputPage(onPriceSubmitted: () => pageController.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.easeInOut)), QRPage()],
+                PriceInputPage(
+                  onPriceSubmitted: _nextPage,
+                ),
+                const QRPage()
+              ],
             ))
       ],
     );
   }
+
+  void _nextPage() {
+    pageController.nextPage(
+        duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
+  }
+
+  void _previousPage() {
+    pageController.previousPage(
+        duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
+  }
 }
 
 class PriceInputPage extends StatefulWidget {
-  const PriceInputPage({Key? key, required this.onPriceSubmitted})
-      : super(key: key);
+  const PriceInputPage({
+    Key? key,
+    required this.onPriceSubmitted,
+  }) : super(key: key);
 
   final void Function() onPriceSubmitted;
   @override
@@ -212,26 +232,33 @@ class _QRPageState extends State<QRPage> {
             textAlign: TextAlign.center,
           ),
         ),
-        GridView.count(
-          primary: false,
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          shrinkWrap: true,
-          childAspectRatio: 132 / 60,
-          crossAxisCount: 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 12,
-          children: List.generate(
-              5,
-              (index) => InkWell(
-                  onTap: () {
-                    if (index != currentCoin) {
-                      setState(() {
-                        currentCoin = index;
-                      });
-                      //TODO: regenerar QR
-                    }
-                  },
-                  child: AvailableCoinItem(selected: index == currentCoin))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: GridView.builder(
+            primary: false,
+            // padding:  EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width - (200*2+24+24))/2),
+            shrinkWrap: true,
+            itemCount: 5,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                crossAxisCount: 2,
+                mainAxisExtent: 80,
+                childAspectRatio: 132 / 60),
+
+            // crossAxisSpacing: 16,
+            // mainAxisSpacing: 12,
+            itemBuilder: (context, index) => InkWell(
+                onTap: () {
+                  if (index != currentCoin) {
+                    setState(() {
+                      currentCoin = index;
+                    });
+                    //TODO: regenerar QR
+                  }
+                },
+                child: AvailableCoinItem(selected: index == currentCoin)),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -330,7 +357,9 @@ class AvailableCoinItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      width: 152,
+      height: 68.18,
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         border: selected
@@ -341,11 +370,11 @@ class AvailableCoinItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 30,
             backgroundColor: ColorPalette.algaeGreen,
           ),
-          SizedBox(
+          const SizedBox(
             width: 12,
           ),
           Column(
@@ -370,10 +399,10 @@ class AvailableCoinItem extends StatelessWidget {
                         .caption
                         ?.copyWith(color: ColorPalette.algaeGreen),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 4,
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_drop_up_outlined,
                     color: ColorPalette.algaeGreen,
                   )

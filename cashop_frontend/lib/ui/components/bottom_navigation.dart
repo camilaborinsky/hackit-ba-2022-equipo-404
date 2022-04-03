@@ -145,7 +145,7 @@ class QRFloatingActionButton extends StatelessWidget {
               size: 32,
             ),
             onPressed: () {
-              Navigator.pushNamed(context, 'charge');
+              Navigator.pushNamed(context, '/charge');
             },
           ),
           const SizedBox(

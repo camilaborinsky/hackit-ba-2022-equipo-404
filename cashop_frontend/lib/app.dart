@@ -14,7 +14,6 @@ class CashopApp extends StatelessWidget {
       title: 'Cashop',
       theme: CustomTheme.lightTheme,
       routes: {
-        "/":(context) => HomeScreen(),
         "/charge":(context) => ChargeScreen(),
         "/faq": (context) => FAQScreen(),
       },

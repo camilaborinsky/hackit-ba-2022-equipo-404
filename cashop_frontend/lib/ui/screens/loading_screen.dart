@@ -102,7 +102,6 @@ class _ProcessingPaymentScreenState extends State<ProcessingPaymentScreen> {
                     ),
                   ),
                 ),
-                
                 if (loading)
                   Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -128,7 +127,10 @@ class _ProcessingPaymentScreenState extends State<ProcessingPaymentScreen> {
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
                   ),
-                 onPressed: () => Navigator.of(context).popUntil((Route r)=> false),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
                 )
               ],
             ))

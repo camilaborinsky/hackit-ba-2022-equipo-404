@@ -24,6 +24,16 @@ const addresses = [
 	{ currency: "usdt", address: "sdfgsdfg", amount: 0.000000923 },
 	{ currency: "dai", address: "sdfgsdfg", amount: 0.000000923 },
 ]
+const wallet = [
+	{ currency: "bitcoinLN", abbreviation: "btcLN", amount: 0.023 },
+	{ currency: "BNB", abbreviation: "BNB", amount: 0.48 },
+	{ currency: "Ripple", abbreviation: "XRP", amount: 149 },
+	{ currency: "Polygon", abbreviation: "MATIC", amount: 24 },
+	{ currency: "cardano", abbreviation: "ADA", amount: 708 },
+	{ currency: "TerraUSD", abbreviation: "UST", amount: 59 },
+	{ currency: "Dai", abbreviation: "DAI", amount: 12 },
+]
+
 const chargeResponse = (price) => {
 	id++
 	return {
@@ -48,6 +58,10 @@ app.post("/charges", (req, res) => {
 
 app.get("/charges", (req, res) => {
 	res.send({ data: charges })
+})
+
+app.get("/wallet", (req, res) => {
+	res.send({ data: wallet })
 })
 
 export default app

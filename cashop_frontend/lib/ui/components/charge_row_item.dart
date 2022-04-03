@@ -15,14 +15,14 @@ class ChargeRowItem extends StatelessWidget {
         height: 50,
         child: Row(
           children: <Widget>[
-            const Icon(
-              Icons.circle,
-              color: ColorPalette.silver,
-              size: 16,
-            ),
-            const SizedBox(
-              width: 16,
-            ),
+            // const Icon(
+            //   Icons.circle,
+            //   color: ColorPalette.silver,
+            //   size: 16,
+            // ),
+            // const SizedBox(
+            //   width: 16,
+            // ),
             RichText(
                 text: TextSpan(
                     text: "\$${charge.price.amount.floor()}",

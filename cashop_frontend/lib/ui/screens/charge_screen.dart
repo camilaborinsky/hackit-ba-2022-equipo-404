@@ -1,10 +1,17 @@
+import 'dart:math';
+
+import 'package:cashop_frontend/data/api/api_response.dart';
 import 'package:cashop_frontend/data/api/wallet_api.dart';
 import 'package:cashop_frontend/layout/responsive_interface.dart';
 import 'package:cashop_frontend/style/color_palette.dart';
 import 'package:cashop_frontend/style/font_family.dart';
 import 'package:cashop_frontend/ui/layouts/mobile_scaffold.dart';
 import 'package:cashop_frontend/ui/layouts/web_scaffold.dart';
+import 'package:cashop_frontend/ui/screens/loading_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+
+import '../../data/api/charges_api.dart';
 
 class ChargeScreen extends StatefulWidget {
   const ChargeScreen({Key? key}) : super(key: key);
@@ -15,10 +22,13 @@ class ChargeScreen extends StatefulWidget {
 
 class _ChargeScreenState extends State<ChargeScreen> {
   late PageController pageController;
+  late ChargesApi chargesApi;
+  Charge? charge;
 
   @override
   void initState() {
     pageController = PageController();
+    chargesApi = ChargesApi("http://localhost:8000");
     super.initState();
   }
 
@@ -82,9 +92,21 @@ class _ChargeScreenState extends State<ChargeScreen> {
               controller: pageController,
               children: <Widget>[
                 PriceInputPage(
-                  onPriceSubmitted: _nextPage,
+                  onPriceSubmitted: (double price) async {
+                    ApiResponse<Charge> apiResponseCreateCharge =
+                        await chargesApi.createCharge(Price("ARS", price));
+                    if (apiResponseCreateCharge.success) {
+                      Charge? chargesData = apiResponseCreateCharge.data;
+                      if (chargesData != null) {
+                        setState(() {
+                          charge = chargesData;
+                        });
+                      }
+                    }
+                    _nextPage();
+                  },
                 ),
-                const QRPage()
+                QRPage(charge)
               ],
             ))
       ],
@@ -108,7 +130,7 @@ class PriceInputPage extends StatefulWidget {
     required this.onPriceSubmitted,
   }) : super(key: key);
 
-  final void Function() onPriceSubmitted;
+  final void Function(double price) onPriceSubmitted;
   @override
   State<PriceInputPage> createState() => _PriceInputPageState();
 }
@@ -119,7 +141,7 @@ class _PriceInputPageState extends State<PriceInputPage> {
   @override
   void initState() {
     _textEditingController =
-        TextEditingController.fromValue(const TextEditingValue(text: '\$0'));
+        TextEditingController.fromValue(const TextEditingValue(text: '0'));
     super.initState();
   }
 
@@ -153,8 +175,7 @@ class _PriceInputPageState extends State<PriceInputPage> {
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
-
-                  // prefixText: '\$',
+                  prefixText: '\$',
                   prefixStyle: Theme.of(context).textTheme.headline1?.copyWith(
                       fontFamily: FontFamily.sfProDisplay, fontSize: 25)),
               keyboardType: TextInputType.number,
@@ -175,7 +196,8 @@ class _PriceInputPageState extends State<PriceInputPage> {
                 iconData: Icons.qr_code_2_rounded,
                 text: 'Generar QR',
                 onPressed: () {
-                  widget.onPriceSubmitted();
+                  widget.onPriceSubmitted(
+                      double.parse(_textEditingController.value.text));
                 }),
           ),
         )
@@ -185,7 +207,8 @@ class _PriceInputPageState extends State<PriceInputPage> {
 }
 
 class QRPage extends StatefulWidget {
-  const QRPage({Key? key}) : super(key: key);
+  Charge? charge;
+  QRPage(this.charge, {Key? key}) : super(key: key);
 
   @override
   State<QRPage> createState() => _QRPageState();
@@ -220,7 +243,7 @@ class _QRPageState extends State<QRPage> {
           child: SizedBox(
             width: 331,
             height: 331,
-            child: _generateQRCode(),
+            child: _generateQRCode(widget.charge?.addresses[currentCoin]),
           ),
         ),
         Padding(
@@ -260,7 +283,10 @@ class _QRPageState extends State<QRPage> {
                     //TODO: regenerar QR
                   }
                 },
-                child: AvailableCoinItem(selected: index == currentCoin, cryptoCoin: CryptoCoin.availableCoins[index],)),
+                child: AvailableCoinItem(
+                  selected: index == currentCoin,
+                  cryptoCoin: CryptoCoin.availableCoins[index],
+                )),
           ),
         ),
         Padding(
@@ -276,7 +302,12 @@ class _QRPageState extends State<QRPage> {
                 width: 20,
               ),
               ActionIconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProcessingPaymentScreen()));
+                },
                 iconData: Icons.check_rounded,
                 primary: true,
                 text: 'Listo',
@@ -299,11 +330,24 @@ class _QRPageState extends State<QRPage> {
     );
   }
 
-  Widget _generateQRCode() {
+  Widget _generateQRCode(Address? address) {
+    if (address == null) return Container();
     return Container(
-      color: ColorPalette.algaeGreen,
-    ); // TODO: aca va el QR
+        child: Center(
+      child: QrImage(
+        data: "0x${getRandomString(42)}",
+        version: QrVersions.auto,
+        size: 200.0,
+      ),
+    ));
   }
+
+  static const _chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  final Random _rnd = Random();
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 }
 
 class ActionIconButton extends StatelessWidget {
@@ -353,7 +397,9 @@ class ActionIconButton extends StatelessWidget {
 }
 
 class AvailableCoinItem extends StatelessWidget {
-  const AvailableCoinItem({Key? key, required this.selected, required this.cryptoCoin}) : super(key: key);
+  const AvailableCoinItem(
+      {Key? key, required this.selected, required this.cryptoCoin})
+      : super(key: key);
 
   final bool selected;
   final CryptoCoin cryptoCoin;
@@ -367,7 +413,7 @@ class AvailableCoinItem extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         border: selected
-            ? Border.all(color: ColorPalette.algaeGreen, width: 1.5)
+            ? Border.all(color: ColorPalette.yourPink, width: 1.5)
             : null,
       ),
       child: Row(
@@ -399,17 +445,19 @@ class AvailableCoinItem extends StatelessWidget {
                 children: [
                   Text(
                     "${cryptoCoin.performance.abs().toStringAsFixed(2)}%",
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption
-                        ?.copyWith(color: cryptoCoin.performance > 0 ? ColorPalette.algaeGreen : ColorPalette.yourPink),
+                    style: Theme.of(context).textTheme.caption?.copyWith(
+                        color: cryptoCoin.performance > 0
+                            ? ColorPalette.algaeGreen
+                            : ColorPalette.yourPink),
                   ),
                   const SizedBox(
                     width: 4,
                   ),
                   Icon(
                     Icons.arrow_drop_up_outlined,
-                    color: cryptoCoin.performance > 0 ? ColorPalette.algaeGreen : ColorPalette.yourPink,
+                    color: cryptoCoin.performance > 0
+                        ? ColorPalette.algaeGreen
+                        : ColorPalette.yourPink,
                   )
                 ],
               )

@@ -17,7 +17,9 @@ class AccountHeader extends StatelessWidget {
         children: <Widget>[
           IconButton(
             iconSize: 40,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed("/faq");
+            },
             icon: const Icon(
               Icons.help_outline_rounded,
               color: ColorPalette.doveGrey,

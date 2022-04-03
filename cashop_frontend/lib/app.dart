@@ -1,5 +1,6 @@
 import 'package:cashop_frontend/style/theme.dart';
 import 'package:cashop_frontend/ui/screens/charge_screen.dart';
+import 'package:cashop_frontend/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class CashopApp extends StatelessWidget {
@@ -15,7 +16,7 @@ class CashopApp extends StatelessWidget {
         "charge":(context) => ChargeScreen(),
       },
       initialRoute: '/',
-      home: const CashopApp(),
+      home: const HomeScreen(),
     );
   }
 }

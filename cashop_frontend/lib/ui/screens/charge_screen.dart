@@ -13,6 +13,14 @@ class ChargeScreen extends StatefulWidget {
 }
 
 class _ChargeScreenState extends State<ChargeScreen> {
+  late PageController pageController;
+
+  @override
+  void initState() {
+    pageController = PageController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
@@ -64,7 +72,9 @@ class _ChargeScreenState extends State<ChargeScreen> {
         Flexible(
             fit: FlexFit.tight,
             child: PageView(
-              children: const <Widget>[PriceInputPage(), QRPage()],
+              controller: pageController,
+              children: <Widget>[
+                PriceInputPage(onPriceSubmitted: () => pageController.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.easeInOut)), QRPage()],
             ))
       ],
     );
@@ -72,8 +82,10 @@ class _ChargeScreenState extends State<ChargeScreen> {
 }
 
 class PriceInputPage extends StatefulWidget {
-  const PriceInputPage({Key? key}) : super(key: key);
+  const PriceInputPage({Key? key, required this.onPriceSubmitted})
+      : super(key: key);
 
+  final void Function() onPriceSubmitted;
   @override
   State<PriceInputPage> createState() => _PriceInputPageState();
 }
@@ -139,7 +151,9 @@ class _PriceInputPageState extends State<PriceInputPage> {
                 primary: true,
                 iconData: Icons.qr_code_2_rounded,
                 text: 'Generar QR',
-                onPressed: () {}),
+                onPressed: () {
+                  widget.onPriceSubmitted();
+                }),
           ),
         )
       ],

@@ -121,7 +121,7 @@ class _ProcessingPaymentScreenState extends State<ProcessingPaymentScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
                 ),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Navigator.of(context).popUntil((Route r)=> false),
               )
             ],
           ) 

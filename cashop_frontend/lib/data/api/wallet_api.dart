@@ -34,12 +34,13 @@ class Coin {
 class CryptoCoin extends Equatable{
   static List<CryptoCoin> availableCoins = [
     CryptoCoin(currency: 'Bitcoin Lightning Network', abbreviation: 'btcLN', iconPath: '/crypto_icons/bitcoin_icon.png', performance: 0.6),
-    CryptoCoin(currency: 'Avalanche', abbreviation: 'AVA', iconPath: '/crypto_icons/ava_icon.png', performance: 0.2),
+    CryptoCoin(currency: 'Avalanche', abbreviation: 'AVAX', iconPath: '/crypto_icons/ava_icon.png', performance: 0.2),
     CryptoCoin(currency: 'Ripple', abbreviation: 'XRP', iconPath: '/crypto_icons/xrp_icon.png', performance: -0.44),
     CryptoCoin(currency: 'Polkadot', abbreviation: 'DOT', iconPath: '/crypto_icons/dot_icon.jpg', performance: -0.3),
     CryptoCoin(currency: 'TetherUSD TRC-20', abbreviation: 'USDT-TRC20', iconPath: '/crypto_icons/usdt_icon.png', performance: 0.01),
     CryptoCoin(currency: 'TerraUSD', abbreviation: 'UST', iconPath: '/crypto_icons/ust_icon.png', performance: -0.01),
     CryptoCoin(currency: 'nuARS', abbreviation: 'nuARS', iconPath: '/crypto_icons/nuars_icon.png', performance: -0.01),
+    CryptoCoin(currency:'Solana',abbreviation: 'SOL',iconPath: '/crypto_icons/solana_icon.png',performance: 0.15)
 
   ];
 

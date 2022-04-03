@@ -148,7 +148,7 @@ class AccountHeader extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: CircleAvatar(
               radius: 25,
-              backgroundColor: ColorPalette.emerald,
+              backgroundImage:AssetImage('avatar/agustin_tormakh_avatar.jpeg'),
             ),
           )
         ],
